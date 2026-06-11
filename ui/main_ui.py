@@ -1,6 +1,10 @@
 import streamlit as st
+from core.web_research import WebResearchAgent
+from core.self_improvement import SelfImprovement
+from ui.ceo_dashboard import show_ceo_dashboard
 
-def lovable_ui():
+def main_ui():
+    # Lovable Style UI
     st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -48,4 +52,33 @@ def lovable_ui():
     """, unsafe_allow_html=True)
 
     st.markdown('<h1 class="main-header">Victor</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">AI that builds like Lovable</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">AI that builds like Lovable • Self-Evolving</p>', unsafe_allow_html=True)
+
+    # Main Content
+    col1, col2 = st.columns([1, 3])
+    
+    with col1:
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.subheader("🎛️ Control Panel")
+        mode = st.selectbox("เลือกโหมด", 
+                          ["🌐 Web Builder", "🤖 AI Agent Builder", "🔄 Self-Improvement", "🔍 Research Mode", "👑 CEO Dashboard"])
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with col2:
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        prompt = st.text_area("อธิบายสิ่งที่อยากสร้าง", 
+                            placeholder="เช่น: สร้างเว็บร้านขายเสื้อผ้าแนว Streetwear ที่มีระบบตะกร้าและชำระเงิน",
+                            height=150)
+        
+        col_a, col_b = st.columns(2)
+        with col_a:
+            if st.button("🚀 สร้างเลย + Live Preview", type="primary", use_container_width=True):
+                st.success("Victor กำลังสร้างแอป...")
+                # เรียกระบบสร้างแอปที่นี่
+        with col_b:
+            if st.button("👑 เปิด CEO Dashboard", use_container_width=True):
+                show_ceo_dashboard()
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # Footer
+    st.caption("Victor v3.20 • Powered by Self-Improvement + Research Agent")
