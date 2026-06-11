@@ -2,6 +2,7 @@ import streamlit as st
 from ui.ceo_dashboard import show_ceo_dashboard
 
 def main_ui():
+    # === Lovable Style UI ===
     st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -11,7 +12,7 @@ def main_ui():
         }
         
         .main-header {
-            font-size: 3.2rem;
+            font-size: 3.8rem;
             font-weight: 700;
             color: white;
             text-align: center;
@@ -24,25 +25,31 @@ def main_ui():
             font-size: 1.4rem;
             margin-bottom: 3rem;
         }
-        
-        .prompt-box {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .stTextArea textarea {
-            font-size: 1.1rem;
-            min-height: 140px !important;
-        }
     </style>
     """, unsafe_allow_html=True)
 
     st.markdown('<h1 class="main-header">Victor</h1>', unsafe_allow_html=True)
     st.markdown('<p class="subtitle">What will you build today?</p>', unsafe_allow_html=True)
 
-    # ช่อง Prompt ใหญ่แบบ Lovable
+    # === Victor Core Status ===
+    if "victor_core" in st.session_state:
+        victor = st.session_state.victor_core
+        st.write(victor.get_detailed_status())
+
+    col_core1, col_core2 = st.columns(2)
+    with col_core1:
+        if st.button("🌌 เปิด Victor Core (24h Evolution)", use_container_width=True):
+            if "victor_core" in st.session_state:
+                st.session_state.victor_core.start_24h_evolution()
+            else:
+                st.error("Victor Core ยังไม่ได้สร้าง")
+
+    with col_core2:
+        if st.button("🛑 Emergency Shutdown", use_container_width=True):
+            if "victor_core" in st.session_state:
+                st.error(st.session_state.victor_core.emergency_shutdown())
+
+    # === Prompt Input ===
     prompt = st.text_area(
         "", 
         placeholder="Ask Victor to build a landing page, dashboard, AI agent, or anything you want...",
@@ -55,7 +62,6 @@ def main_ui():
         if st.button("🚀 Build Now", type="primary", use_container_width=True):
             if prompt.strip():
                 st.success("Victor is building your app...")
-                # ใส่ logic การสร้างที่นี่ภายหลัง
             else:
                 st.warning("Please describe what you want to build")
 
@@ -63,7 +69,7 @@ def main_ui():
         if st.button("👑 CEO Dashboard", use_container_width=True):
             show_ceo_dashboard()
 
-    # Live Preview (ถ้ามี)
+    # Live Preview
     if "current_preview" in st.session_state and st.session_state.current_preview:
-        st.subheader("Live Preview")
+        st.subheader("👀 Live Preview")
         st.components.v1.html(st.session_state.current_preview, height=600)
