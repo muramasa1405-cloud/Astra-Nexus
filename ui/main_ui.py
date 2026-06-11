@@ -2,19 +2,18 @@ import streamlit as st
 from ui.ceo_dashboard import show_ceo_dashboard
 
 def main_ui():
-    # UI Style
     st.markdown("""
     <style>
         .stApp { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
         .main-header { font-size: 3.8rem; font-weight: 700; color: white; text-align: center; margin: 2rem 0 0.5rem 0; }
-        .subtitle { text-align: center; color: #94a3b8; font-size: 1.4rem; margin-bottom: 2rem; }
+        .subtitle { text-align: center; color: #94a3b8; font-size: 1.4rem; margin-bottom: 3rem; }
     </style>
     """, unsafe_allow_html=True)
 
     st.markdown('<h1 class="main-header">Victor</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">AI that builds like Lovable • Self-Evolving</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">What will you build today?</p>', unsafe_allow_html=True)
 
-    # === Victor Core ===
+    # === สร้าง Victor Core อัตโนมัติ ===
     if "victor_core" not in st.session_state:
         from core.victor_core import VictorCore
         st.session_state.victor_core = VictorCore()
@@ -24,7 +23,7 @@ def main_ui():
     # แสดงสถานะ
     st.write(victor.get_status())
 
-    # ปุ่มควบคุม Core
+    # ปุ่มควบคุม
     col1, col2 = st.columns(2)
     with col1:
         if st.button("🌌 เปิด Victor Core (24h Evolution)", use_container_width=True, type="primary"):
@@ -36,10 +35,10 @@ def main_ui():
 
     st.divider()
 
-    # Prompt Input
+    # Prompt
     prompt = st.text_area(
         "", 
-        placeholder="พิมพ์สิ่งที่อยากให้ Victor สร้าง เช่น สร้างเว็บร้านขายเสื้อผ้า...",
+        placeholder="Ask Victor to build a landing page, dashboard, AI agent...",
         height=140,
         label_visibility="collapsed"
     )
@@ -48,7 +47,7 @@ def main_ui():
     with col_a:
         if st.button("🚀 Build Now", type="primary", use_container_width=True):
             if prompt.strip():
-                st.success("Victor กำลังสร้าง...")
+                st.success("Victor is building your app...")
             else:
                 st.warning("กรุณาใส่สิ่งที่อยากสร้าง")
 
