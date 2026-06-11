@@ -1,37 +1,15 @@
-# Victor v3.15 - Premium AI Web Builder + Self-Improvement Agent
+# Victor v3.20 - Premium AI Empire Builder
 
-## 🚀 วิธีติดตั้งและรัน
+Victor คือ AI Builder ที่สามารถสร้างเว็บแอป, AI Agent และพัฒนาตัวเองได้
 
-```bash
-# 1. สร้าง virtual environment (แนะนำ)
-python -m venv venv
+## คุณสมบัติหลัก
 
-# Windows
-venv\Scripts\activate
+- **Web App Builder** - สร้างเว็บแอปที่ใช้งานได้จริง
+- **Self-Improvement System** - เรียนรู้และพัฒนาตัวเองอัตโนมัติ
+- **System Bank** - ฐานความรู้ลับเฉพาะโครงการ
+- **Web Research Agent** - ค้นหาข้อมูลจากอินเทอร์เน็ตแบบเรียลไทม์
+- **Multi-Agent System** - ตัวแม่ + ตัวลูกทำงานพร้อมกัน
+- **CEO Dashboard** - ควบคุมและติดตามกิจกรรมเรียลไทม์
+- **Emergency Stop** - ปุ่มหยุดฉุกเฉิน
 
-# Mac / Linux
-source venv/bin/activate
-
-# 2. ติดตั้ง library
-pip install -r requirements.txt
-
-# 3. รันแอป
-streamlit run app.py
-```
-
-## ✨ ฟีเจอร์หลัก
-
-- **Web Builder** — สร้างเว็บไซต์จากคำอธิบายด้วย AI
-- **Self-Improvement** — Victor ปรับปรุงตัวเองอัตโนมัติ
-- **CEO Control Mode** — โหมดควบคุมระดับสูง
-- **Multi-Agent System** — ระบบ Agent หลายตัว
-- **Long-term Memory** — ความจำระยะยาว
-- รองรับ **ภาษาไทย + อังกฤษ**
-
-## 📌 เวอร์ชัน
-
-**v3.15** — Premium Edition (June 2026)
-
----
-
-สร้างโดย Victor AI
+## โครงสร้างโปรเจกต์
