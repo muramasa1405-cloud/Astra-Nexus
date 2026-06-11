@@ -1,4 +1,3 @@
-# วางในไฟล์ ui/main_ui.py หรือท้าย app.py
 import streamlit as st
 
 def lovable_ui():
@@ -49,4 +48,4 @@ def lovable_ui():
     """, unsafe_allow_html=True)
 
     st.markdown('<h1 class="main-header">Victor</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">The AI that builds like Lovable</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">AI that builds like Lovable</p>', unsafe_allow_html=True)
