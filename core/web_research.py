@@ -4,35 +4,34 @@ from datetime import datetime
 
 class WebResearchAgent:
     def __init__(self):
-        self.search_history = []
+        if "research_history" not in st.session_state:
+            st.session_state.research_history = []
 
-    def search(self, query, purpose="พัฒนาตัวเอง"):
-        """
-        จำลองการค้นหาข้อมูล (ในอนาคตจะเชื่อม Google API จริง)
-        """
+    def research(self, query, purpose="พัฒนาตัวเอง"):
+        """จำลองการค้นหาข้อมูล (ภายหลังจะเชื่อม Google API จริง)"""
         result = {
             "query": query,
             "purpose": purpose,
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "summary": f"ค้นพบข้อมูลเกี่ยวกับ '{query}' จำนวนมากจากแหล่งข้อมูลออนไลน์",
-            "sources": [
-                f"https://example.com/search?q={query.replace(' ', '+')}",
-                "https://en.wikipedia.org/wiki/" + query.replace(" ", "_")
-            ],
-            "key_insights": [
-                "เทรนด์ปัจจุบันกำลังมาแรง",
+            "summary": f"พบข้อมูลที่เกี่ยวข้องกับ '{query}' จำนวนมาก",
+            "key_findings": [
+                "เทรนด์ปัจจุบันกำลังมาแรงในปี 2026",
                 "มีตัวอย่างโค้ดและวิธีการที่ดีหลายรูปแบบ",
-                "ควรนำมาปรับใช้กับ Victor"
+                "ควรนำมาปรับใช้เพื่อพัฒนา Victor"
+            ],
+            "sources": [
+                f"https://google.com/search?q={query.replace(' ', '+')}",
+                "https://github.com/trending"
             ]
         }
         
-        self.search_history.append(result)
+        st.session_state.research_history.append(result)
         
         # บันทึกเข้า System Bank อัตโนมัติ
-        if hasattr(st.session_state, "system_bank"):
+        if "system_bank" in st.session_state:
             st.session_state.system_bank.add_knowledge(
                 title=f"Research: {query}",
-                content=result["summary"] + "\n\nKey Insights: " + "\n".join(result["key_insights"]),
+                content=result["summary"],
                 category="Web Research",
                 secret_level="All Agents"
             )
@@ -40,4 +39,4 @@ class WebResearchAgent:
         return result
 
     def get_history(self):
-        return self.search_history
+        return st.session_state.research_history
