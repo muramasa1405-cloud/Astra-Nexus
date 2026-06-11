@@ -2,74 +2,56 @@ import streamlit as st
 from ui.ceo_dashboard import show_ceo_dashboard
 
 def main_ui():
-    # === Lovable Style UI ===
+    # UI Style
     st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        .stApp {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        }
-        
-        .main-header {
-            font-size: 3.8rem;
-            font-weight: 700;
-            color: white;
-            text-align: center;
-            margin: 2rem 0 0.5rem 0;
-        }
-        
-        .subtitle {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 1.4rem;
-            margin-bottom: 3rem;
-        }
+        .stApp { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+        .main-header { font-size: 3.8rem; font-weight: 700; color: white; text-align: center; margin: 2rem 0 0.5rem 0; }
+        .subtitle { text-align: center; color: #94a3b8; font-size: 1.4rem; margin-bottom: 2rem; }
     </style>
     """, unsafe_allow_html=True)
 
     st.markdown('<h1 class="main-header">Victor</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">What will you build today?</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">AI that builds like Lovable • Self-Evolving</p>', unsafe_allow_html=True)
 
-    # === Victor Core Status ===
-    if "victor_core" in st.session_state:
-        victor = st.session_state.victor_core
-        st.write(victor.get_detailed_status())
+    # === Victor Core ===
+    if "victor_core" not in st.session_state:
+        from core.victor_core import VictorCore
+        st.session_state.victor_core = VictorCore()
 
-    col_core1, col_core2 = st.columns(2)
-    with col_core1:
-        if st.button("🌌 เปิด Victor Core (24h Evolution)", use_container_width=True):
-            if "victor_core" in st.session_state:
-                st.session_state.victor_core.start_24h_evolution()
-            else:
-                st.error("Victor Core ยังไม่ได้สร้าง")
+    victor = st.session_state.victor_core
 
-    with col_core2:
+    # แสดงสถานะ
+    st.write(victor.get_status())
+
+    # ปุ่มควบคุม Core
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("🌌 เปิด Victor Core (24h Evolution)", use_container_width=True, type="primary"):
+            victor.start_evolution()
+
+    with col2:
         if st.button("🛑 Emergency Shutdown", use_container_width=True):
-            if "victor_core" in st.session_state:
-                st.error(st.session_state.victor_core.emergency_shutdown())
+            st.error(victor.shutdown())
 
-    # === Prompt Input ===
+    st.divider()
+
+    # Prompt Input
     prompt = st.text_area(
         "", 
-        placeholder="Ask Victor to build a landing page, dashboard, AI agent, or anything you want...",
-        height=160,
+        placeholder="พิมพ์สิ่งที่อยากให้ Victor สร้าง เช่น สร้างเว็บร้านขายเสื้อผ้า...",
+        height=140,
         label_visibility="collapsed"
     )
 
-    col1, col2 = st.columns([1, 1])
-    with col1:
+    col_a, col_b = st.columns(2)
+    with col_a:
         if st.button("🚀 Build Now", type="primary", use_container_width=True):
             if prompt.strip():
-                st.success("Victor is building your app...")
+                st.success("Victor กำลังสร้าง...")
             else:
-                st.warning("Please describe what you want to build")
+                st.warning("กรุณาใส่สิ่งที่อยากสร้าง")
 
-    with col2:
+    with col_b:
         if st.button("👑 CEO Dashboard", use_container_width=True):
             show_ceo_dashboard()
-
-    # Live Preview
-    if "current_preview" in st.session_state and st.session_state.current_preview:
-        st.subheader("👀 Live Preview")
-        st.components.v1.html(st.session_state.current_preview, height=600)
