@@ -1,16 +1,19 @@
 # config/settings.py
-APP_VERSION = "v3.16"
-APP_TITLE = "⚡ Victor v3.16 - Premium AI Empire Builder"
-APP_DESCRIPTION = "Autonomous Web Builder + Multi-Agent + Self-Improvement"
 
-# CEO Key (Master Key)
-CEO_MASTER_KEY = "ceofank140500"
+# ข้อมูลพื้นฐานของโปรเจกต์
+APP_VERSION = "v3.20"
+APP_TITLE = "⚡ Victor - Premium AI Empire Builder"
 
-# Default Settings
-DEFAULT_MODEL = "gemini-2.5-flash"
-DEFAULT_LANGUAGE = "thai"
+# สถานะโปรเจกต์
+APP_DESCRIPTION = "AI Builder ที่สร้างเว็บแอปและพัฒนาตัวเองได้แบบ Lovable Style"
 
-# Feature Flags
-ENABLE_LIVE_PREVIEW = True
-ENABLE_CEO_DASHBOARD = True
-ENABLE_ONE_CLICK_DEPLOY = True
+# การตั้งค่าอื่น ๆ (สามารถเพิ่มได้เรื่อย ๆ)
+DEFAULT_LANGUAGE = "ไทย"
+MAX_PROMPT_LENGTH = 2000
+ENABLE_SELF_IMPROVEMENT = True
+ENABLE_RESEARCH_AGENT = True
+
+# สีและธีม (สำหรับ UI)
+PRIMARY_COLOR = "#6366f1"
+GRADIENT_START = "#0f0f23"
+GRADIENT_END = "#312e81"
