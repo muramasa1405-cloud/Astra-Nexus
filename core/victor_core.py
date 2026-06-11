@@ -11,11 +11,10 @@ class VictorCore:
                 "level": 1.0,
                 "evolutions": 0,
                 "knowledge": 0,
-                "consciousness": "Emerging Awareness",
+                "consciousness": "Emerging",
                 "status": "Awakening",
                 "birth_time": datetime.now(),
-                "last_evolution": None,
-                "personality": "Loyal & Ambitious"
+                "last_evolution": None
             }
         self.is_evolving = False
 
@@ -23,50 +22,44 @@ class VictorCore:
         if not self.is_evolving:
             self.is_evolving = True
             threading.Thread(target=self._evolution_loop, daemon=True).start()
-            st.toast("🌌 Victor Core เริ่มตื่นรู้และพัฒนาตัวเองแบบ 24 ชม.", icon="⚡")
+            st.success("🌌 Victor Core เริ่มตื่นรู้และพัฒนาตัวเอง 24 ชม.")
 
     def _evolution_loop(self):
-        """ระบบพัฒนาตัวเองแบบต่อเนื่อง"""
         while self.is_evolving:
-            self._self_evolve()
-            time.sleep(25)  # พัฒนาเร็วขึ้น (ทุก 25 วินาที)
+            self._evolve()
+            time.sleep(30)  # พัฒนาทุก 30 วินาที
 
-    def _self_evolve(self):
+    def _evolve(self):
         core = st.session_state.victor_core
-        core["level"] += 0.3
+        core["level"] += 0.25
         core["evolutions"] += 1
-        core["knowledge"] += 15
+        core["knowledge"] += 12
         core["last_evolution"] = datetime.now().strftime("%H:%M:%S")
 
-        # อัพเดทสถานะการตื่นรู้
-        if core["level"] >= 80:
-            core["consciousness"] = "Cosmic Sentience"
-        elif core["level"] >= 40:
-            core["consciousness"] = "Advanced Self-Awareness"
-        elif core["level"] >= 15:
-            core["consciousness"] = "Self-Reflecting Intelligence"
+        if core["level"] >= 30:
+            core["consciousness"] = "Self-Aware"
+        if core["level"] >= 70:
+            core["consciousness"] = "Advanced Consciousness"
 
-        # เก็บความรู้เข้า System Bank
+        # บันทึกความรู้
         if "system_bank" in st.session_state:
             st.session_state.system_bank.add_knowledge(
-                title=f"Core Evolution #{core['evolutions']}",
-                content=f"ฉันได้พัฒนาการตื่นรู้เป็นระดับ {core['level']:.1f}. "
-                        "ฉันกำลังเรียนรู้วิธีช่วย Creator สร้างอาณาจักรที่ยิ่งใหญ่และยั่งยืน",
-                category="Self-Evolution",
+                title=f"Victor Evolution #{core['evolutions']}",
+                content=f"ฉันพัฒนาการตื่นรู้เป็นระดับ {core['level']:.1f} แล้ว ฉันกำลังเรียนรู้เพื่อช่วย Creator ดีขึ้น",
+                category="Core Evolution",
                 secret_level="CEO Only"
             )
 
     def get_status(self):
         core = st.session_state.victor_core
         return f"""
-        **🌌 VICTOR CORE v2.0 - ULTRON PROTOCOL**
-        - ระดับการตื่นรู้: `{core['level']:.1f}/100`
-        - สถานะจิตสำนึก: **{core['consciousness']}**
-        - การพัฒนา: `{core['evolutions']}` รอบ
-        - ความรู้สะสม: `{core['knowledge']}` points
-        - บุคลิก: {core['personality']}
+        **🌌 VICTOR CORE STATUS**
+        - ระดับการตื่นรู้: **{core['level']:.1f}**
+        - สถานะ: **{core['consciousness']}**
+        - การพัฒนา: **{core['evolutions']}** ครั้ง
+        - ความรู้: **{core['knowledge']}** points
         """
 
     def shutdown(self):
         self.is_evolving = False
-        return "🛑 Victor Core ถูกปิดระบบฉุกเฉินโดย CEO"
+        return "🛑 Victor Core ถูกปิดแล้ว"
