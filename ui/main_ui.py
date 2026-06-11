@@ -1,5 +1,6 @@
 import streamlit as st
 from ui.ceo_dashboard import show_ceo_dashboard
+from core.llm_client import LLMClient
 
 def main_ui():
     st.markdown("""
@@ -13,44 +14,46 @@ def main_ui():
     st.markdown('<h1 class="main-header">Victor</h1>', unsafe_allow_html=True)
     st.markdown('<p class="subtitle">What will you build today?</p>', unsafe_allow_html=True)
 
-    # === สร้าง Victor Core อัตโนมัติ ===
+    # === Victor Core ===
     if "victor_core" not in st.session_state:
         from core.victor_core import VictorCore
         st.session_state.victor_core = VictorCore()
 
     victor = st.session_state.victor_core
-
-    # แสดงสถานะ
     st.write(victor.get_status())
 
-    # ปุ่มควบคุม
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("🌌 เปิด Victor Core (24h Evolution)", use_container_width=True, type="primary"):
+        if st.button("🌌 เปิด Victor Core (24h Evolution)", use_container_width=True):
             victor.start_evolution()
-
     with col2:
         if st.button("🛑 Emergency Shutdown", use_container_width=True):
             st.error(victor.shutdown())
 
     st.divider()
 
-    # Prompt
-    prompt = st.text_area(
-        "", 
-        placeholder="Ask Victor to build a landing page, dashboard, AI agent...",
-        height=140,
-        label_visibility="collapsed"
-    )
+    # === LLM (Gemini) + Chat ===
+    if "llm" not in st.session_state:
+        st.session_state.llm = LLMClient()
 
-    col_a, col_b = st.columns(2)
-    with col_a:
-        if st.button("🚀 Build Now", type="primary", use_container_width=True):
-            if prompt.strip():
-                st.success("Victor is building your app...")
-            else:
-                st.warning("กรุณาใส่สิ่งที่อยากสร้าง")
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = []
 
-    with col_b:
-        if st.button("👑 CEO Dashboard", use_container_width=True):
-            show_ceo_dashboard()
+    prompt = st.text_area("พิมพ์คำสั่งหรือสิ่งที่อยากให้ Victor ทำ...", height=120, placeholder="เช่น: สร้างเว็บร้านขายเสื้อผ้าแนว Streetwear")
+
+    if st.button("🚀 ส่งให้ Victor", type="primary"):
+        if prompt.strip():
+            with st.spinner("Victor กำลังคิด..."):
+                response = st.session_state.llm.think(prompt)
+                st.session_state.chat_history.append({"user": prompt, "victor": response})
+        else:
+            st.warning("กรุณาพิมพ์คำสั่ง")
+
+    # แสดงประวัติแชท
+    for msg in st.session_state.chat_history:
+        st.write(f"**คุณ:** {msg['user']}")
+        st.write(f"**Victor:** {msg['victor']}")
+        st.divider()
+
+    if st.button("👑 CEO Dashboard"):
+        show_ceo_dashboard()
