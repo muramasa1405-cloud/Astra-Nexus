@@ -1,12 +1,10 @@
 import streamlit as st
 from ui.ceo_dashboard import show_ceo_dashboard
-from core.web_research import WebResearchAgent
-from core.self_improvement import SelfImprovement
 
 def main_ui():
-    # Lovable Style
     st.markdown("""
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
         .stApp {
             background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 40%, #312e81 100%);
             background-size: 400% 400%;
@@ -17,28 +15,9 @@ def main_ui():
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .main-header {
-            font-size: 3.8rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, #c084fc, #60a5fa, #22d3ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-align: center;
-            margin: 1.5rem 0 0.5rem 0;
-        }
-        .subtitle {
-            text-align: center;
-            color: #c4d0ff;
-            font-size: 1.35rem;
-            margin-bottom: 2rem;
-        }
-        .card {
-            background: rgba(255,255,255,0.07);
-            border-radius: 24px;
-            padding: 28px;
-            border: 1px solid rgba(255,255,255,0.12);
-            backdrop-filter: blur(16px);
-        }
+        .main-header { font-size: 3.8rem; font-weight: 800; background: linear-gradient(90deg, #c084fc, #60a5fa, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; margin: 1.5rem 0 0.5rem 0; }
+        .subtitle { text-align: center; color: #c4d0ff; font-size: 1.35rem; margin-bottom: 2rem; }
+        .card { background: rgba(255,255,255,0.07); border-radius: 24px; padding: 28px; border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(16px); }
     </style>
     """, unsafe_allow_html=True)
 
@@ -58,33 +37,32 @@ def main_ui():
     with col1:
         st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("🎛️ Control Panel")
-        mode = st.selectbox("เลือกโหมด", 
-                          ["🌐 Web Builder", "🤖 AI Agent Builder", "🔄 Self-Improvement", "🔍 Research Mode", "👑 CEO Dashboard"])
+        mode = st.selectbox("เลือกโหมด", ["🌐 Web Builder", "🤖 AI Agent Builder", "🔄 Self-Improvement", "🔍 Research Mode", "👑 CEO Dashboard"])
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col2:
         st.markdown('<div class="card">', unsafe_allow_html=True)
-        prompt = st.text_area("อธิบายสิ่งที่อยากสร้าง", 
-                            placeholder="เช่น: สร้างเว็บร้านขายเสื้อผ้าแนว Streetwear ที่มีระบบตะกร้าและชำระเงิน",
-                            height=150)
-        
+        prompt = st.text_area("อธิบายสิ่งที่อยากสร้าง", height=140, 
+                            placeholder="เช่น: สร้างเว็บร้านขายเสื้อผ้าแนว Streetwear")
+
         col_a, col_b = st.columns(2)
         with col_a:
             if st.button("🚀 สร้างเลย + Live Preview", type="primary", use_container_width=True):
-                if prompt:
-                    with st.spinner("Victor กำลังสร้าง..."):
-                        # จำลองการสร้าง
-                        preview_html = f"""
-                        <div style="padding:40px; text-align:center; background:linear-gradient(#1e3a8a, #312e81); color:white; border-radius:20px;">
+                if prompt.strip():
+                    with st.spinner("Victor กำลังสร้างแอป..."):
+                        # สร้าง Preview HTML
+                        preview = f"""
+                        <div style="padding:50px; text-align:center; background:linear-gradient(#1e2937, #312e81); color:white; min-height:500px; border-radius:20px;">
                             <h2>✅ สร้างสำเร็จ!</h2>
-                            <p>เว็บแอป: {prompt}</p>
-                            <p style="margin-top:30px; color:#a5b4fc;">(Live Preview กำลังพัฒนา)</p>
+                            <h3>{prompt}</h3>
+                            <p style="margin-top:40px; font-size:1.2rem;">นี่คือตัวอย่าง Live Preview</p>
+                            <button style="margin-top:30px; padding:15px 40px; background:#6366f1; color:white; border:none; border-radius:12px; font-size:1.1rem;">กดปุ่มนี้ได้</button>
                         </div>
                         """
-                        st.session_state.current_preview = preview_html
-                        st.success("สร้างสำเร็จ! ดู Live Preview ด้านบน")
+                        st.session_state.current_preview = preview
+                        st.success("✅ สร้างสำเร็จ! ดู Live Preview ด้านบน")
                 else:
-                    st.warning("กรุณาใส่คำอธิบาย")
+                    st.warning("กรุณาใส่คำอธิบายสิ่งที่ต้องการสร้าง")
         
         with col_b:
             if st.button("👑 เปิด CEO Dashboard", use_container_width=True):
