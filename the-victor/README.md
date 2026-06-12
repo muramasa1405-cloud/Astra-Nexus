@@ -1,13 +1,15 @@
-# The Victor - Phase 4 Complete
+# The Victor - Phase 1: Foundation
 
-**Status**: Full Phase 1-4 + backend/ui/ + CEO Dashboard
+**สถานะ**: Phase 1 เริ่มต้น
 
-## Features
-- JWT + Refresh Token + Blacklist
-- AES-256 Encryption + Decryption
-- Multi-channel Notifications
-- WebSocket Real-time
-- CEO God Mode Dashboard
+## ไฟล์สำคัญ
+- `backend/core/victor_core.py`
+- `backend/security/ceo_override.py`
+- `backend/utils/activity_logger.py`
+- `backend/config/settings.py`
 
-## Structure
-Complete folder structure as per specification.
+## วิธีใช้งาน
+```bash
+git clone https://github.com/muramasa1405-cloud/Astra-Nexus.git
+cd Astra-Nexus/the-victor
+```
