@@ -2,13 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
 :root {
   --background: #0a0a0f;
   --foreground: #ffffff;
+  --primary: #a855f7;
+  --accent: #22d3ee;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -16,11 +24,30 @@
 .gradient-bg {
   background: linear-gradient(135deg, #0a0a0f 0%, #1a0f2e 50%, #0f172a 100%);
   background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  animation: gradientShift 20s ease infinite;
 }
 
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Lovable Style Enhancements */
+.prompt-box {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prompt-box:focus-within {
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.3);
+  transform: translateY(-2px);
+}
+
+.message {
+  animation: messagePop 0.3s ease;
+}
+
+@keyframes messagePop {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
