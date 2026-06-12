@@ -1,7 +1,8 @@
 # The Victor
 
-## Phase 1: Foundation ✅
-## Phase 2: Core Intelligence ✅
-- Intent Analyzer
-- Prompt Guardrail
-- Model Router
+## Current Status
+- Phase 1: Foundation ✅
+- Phase 2: Core Intelligence ✅
+
+## Folder Structure
+See the full structure in previous messages.
