@@ -1,16 +1,17 @@
-# The Victor - AI Web Builder
+# The Victor - AI Web Builder v4.0
 
 **The Victor** คือ AI Web Builder ที่ฉลาดที่สุดสำหรับ CEO  
-สามารถสร้างเว็บแอปคุณภาพสูงได้แบบ Lovable + มีระบบพัฒนาตัวเอง
+สามารถสร้างเว็บแอปคุณภาพสูงได้แบบ Lovable-style พร้อมระบบพัฒนาตัวเองและควบคุมโดย CEO
 
 ## คุณสมบัติหลัก
 
-- **Lovable-style UI** - อินเทอร์เฟซสวย พรีเมี่ยม ใช้งานง่าย
-- **Live Preview** - เห็นผลลัพธ์แบบเรียลไทม์
-- **Project Management** - บันทึกและโหลดโปรเจกต์ได้
-- **History System** - ดูประวัติการสร้างเว็บ
-- **CEO God Mode** - ควบคุมและ override ได้
-- **Self-Improvement** - Victor เรียนรู้และพัฒนาตัวเองได้
-- **Multi-Phase Architecture** - ระบบแข็งแกร่ง Phase 1-4
+- **Lovable-style UI** — อินเทอร์เฟซสวย พรีเมี่ยม ใช้งานง่าย
+- **Live Preview** — เห็นผลลัพธ์แบบเรียลไทม์ขณะพิมพ์
+- **Project Management** — บันทึกและโหลดโปรเจกต์ได้
+- **History System** — ดูประวัติการสร้างเว็บย้อนหลัง
+- **CEO God Mode** — ควบคุม Victor ได้เต็มที่ (ไม่สามารถปฏิเสธคำสั่ง)
+- **เปลี่ยนรหัสผ่านผ่านเว็บ** — CEO สามารถตั้งรหัสใหม่ได้เอง (ต้องใช้รหัสเก่า `ceofank140500` ยืนยันก่อน)
+- **Self-Improvement System** — Victor เรียนรู้และพัฒนาตัวเองได้
+- **Real-time WebSocket** — เชื่อมต่อแบบเรียลไทม์พร้อมระบบยืนยันตัวตน
 
 ## โครงสร้างโปรเจกต์
