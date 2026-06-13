@@ -6,9 +6,9 @@
 
 :root {
   --background: #0a0a0f;
-  --foreground: #ffffff;
-  --primary: #a855f7;
-  --accent: #22d3ee;
+  --card: rgba(255,255,255,0.08);
+  --primary: #c084fc;
+  --accent: #67e8f9;
 }
 
 body {
@@ -16,45 +16,47 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #0a0a0f 0%, #1a0f2e 50%, #0f172a 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 20s ease infinite;
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1133 40%, #0f172a 100%);
+  background-size: 300% 300%;
+  animation: gradientShift 25s ease infinite;
 }
 
 @keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
+  0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* Lovable Style Enhancements */
-.prompt-box {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Enhanced Lovable-style Elements */
+.prompt-input {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.prompt-box:focus-within {
-  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.3);
-  transform: translateY(-2px);
+.prompt-input:focus-within {
+  box-shadow: 0 0 0 6px rgba(192, 132, 252, 0.3);
+  transform: scale(1.01);
 }
 
-.message {
-  animation: messagePop 0.3s ease;
+.chat-bubble {
+  animation: bubblePop 0.4s ease forwards;
 }
 
-@keyframes messagePop {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes bubblePop {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Live Preview Container */
-.live-preview {
-  background: #ffffff;
-  border-radius: 24px;
+/* Premium Live Preview */
+.preview-container {
+  border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.6);
+  background: white;
 }
