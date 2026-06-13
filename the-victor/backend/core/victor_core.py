@@ -1,34 +1,46 @@
 import asyncio
 from typing import Dict, Any
 from datetime import datetime
+from utils.activity_logger import audit_log
+from security.ceo_password_manager import ceo_password_manager
 
 class VictorCore:
+    """
+    Victor Core - สมองหลักของระบบ
+    รับคำสั่งจาก CEO และประสานงานทุกส่วน
+    """
+
     def __init__(self):
         self.version = "4.0"
         self.status = "Active"
-        self.phase = "All Phases Integrated"
-        self.start_time = datetime.now()
         self.total_projects = 0
-        self.god_mode = True  # CEO Override
-        
         print(f"🚀 Victor Core v{self.version} เริ่มทำงาน...")
 
     async def build_website(self, prompt: str, project_name: str = "Untitled") -> Dict:
-        """ระบบหลักในการสร้างเว็บด้วย Victor"""
+        """สร้างเว็บตามคำสั่ง"""
         self.total_projects += 1
         
-        print(f"[{datetime.now()}] Victor กำลังสร้าง: {project_name}")
-        
-        # เรียกใช้ระบบจากทุก Phase
+        audit_log.log(
+            event_type="WEBSITE_BUILD_STARTED",
+            message=f"Building: {project_name}",
+            params={"prompt": prompt[:100]}
+        )
+
+        # จำลองการสร้างเว็บ (ภายหลังจะเชื่อมกับ code_generator)
         result = {
             "status": "success",
             "project_name": project_name,
             "prompt": prompt,
             "generated_at": datetime.now().isoformat(),
             "version": self.version,
-            "message": "Victor สร้างเว็บเสร็จสมบูรณ์แล้ว (Phase 1-4 Integrated)",
+            "message": "Victor สร้างเว็บเสร็จสมบูรณ์แล้ว",
             "preview_ready": True
         }
+        
+        audit_log.log(
+            event_type="WEBSITE_BUILD_COMPLETED",
+            message=f"Completed: {project_name}"
+        )
         
         return result
 
@@ -37,12 +49,24 @@ class VictorCore:
         return {
             "version": self.version,
             "status": self.status,
-            "phase": self.phase,
-            "uptime": str(datetime.now() - self.start_time),
             "total_projects_created": self.total_projects,
-            "god_mode": self.god_mode,
+            "god_mode_available": True,
             "system": "Fully Operational"
         }
 
-# Singleton
+    async def process_command(self, command: str, ceo_key: str = None) -> Dict:
+        """ประมวลผลคำสั่งจาก CEO"""
+        if ceo_key:
+            verify = ceo_password_manager.verify_password(ceo_key)
+            if not verify:
+                return {"status": "denied", "message": "รหัส CEO ไม่ถูกต้อง"}
+
+        audit_log.log(
+            event_type="CEO_COMMAND_RECEIVED",
+            message=command
+        )
+        
+        return {"status": "processed", "command": command}
+
+# Global instance
 victor = VictorCore()
